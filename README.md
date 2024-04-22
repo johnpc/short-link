@@ -25,3 +25,9 @@ npm run dev
 ```
 
 Then navigate to https://localhost:3000
+
+## Deploy
+
+Deploy a copy of this app to your own AWS account in one click
+
+[![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/johnpc/short-link)

@@ -7,7 +7,6 @@ import { Schema } from "../../../amplify/data/resource";
 
 Amplify.configure(config);
 const client = generateClient<Schema>();
-
 export async function GET(
   req: Request,
   { params }: { params: { hash: string } },
