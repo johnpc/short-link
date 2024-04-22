@@ -4,10 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Amplify } from "aws-amplify";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Button, Card, Link, Grid, Input } from "@aws-amplify/ui-react";
-
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
-
 import config from "../../amplifyconfiguration.json";
 import { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/api";
