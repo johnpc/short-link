@@ -10,7 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.1.8",
+    "@aws-amplify/ui-react": "^6.1.12",
     "aws-amplify": "^6.0.28",
     "next": "14.2.2",
     "react": "^18",
