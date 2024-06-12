@@ -30,7 +30,7 @@
     "constructs": "^10.3.0",
     "esbuild": "^0.20.2",
     "eslint": "^8",
-    "eslint-config-next": "14.2.2",
+    "eslint-config-next": "14.2.4",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "postcss": "^8",
