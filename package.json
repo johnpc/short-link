@@ -28,7 +28,7 @@
     "aws-cdk": "^2.138.0",
     "aws-cdk-lib": "^2.138.0",
     "constructs": "^10.3.0",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.22.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "husky": "^9.0.11",
