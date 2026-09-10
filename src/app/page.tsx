@@ -41,38 +41,49 @@ export default function Home() {
 
   const onCreateShortLink = async () => {
     if (!isValidUrl(destinationUrl)) {
-      alert('Destination url is not valid');
+      alert("Destination url is not valid");
       return;
     }
 
-    const createdLink = await client.models.Link.create({
-      hash,
-      destinationUrl,
-    });
-    if (createdLink.errors) {
-      console.error({ error: createdLink.errors });
-      alert("Failed to create link. Try again.");
+    try {
+      await client.graphql({
+        query: /* GraphQL */ `
+          mutation CreateShortLink($hash: String!, $destinationUrl: String!) {
+            createShortLink(hash: $hash, destinationUrl: $destinationUrl) {
+              id
+              hash
+              destinationUrl
+            }
+          }
+        `,
+        variables: { hash, destinationUrl },
+      });
+      setCreated(true);
+    } catch (error) {
+      console.error({ error });
+      const message =
+        (error as { errors?: { message?: string }[] }).errors?.[0]?.message ??
+        "Failed to create link. Try again.";
+      alert(message);
     }
-    setCreated(true);
   };
 
   const isValidUrl = (url: string): boolean => {
-      try {
-      	return Boolean(new URL(url));
-      }
-      catch(e){
-      	return false;
-      }
-  }
+    try {
+      return Boolean(new URL(url));
+    } catch (e) {
+      return false;
+    }
+  };
 
   const onDesiredShortLinkChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDestinationUrl(e.target.value)
+    setDestinationUrl(e.target.value);
     if (!isValidUrl(e.target.value)) {
       setIsValidUrlInput(false);
       return;
     }
     setIsValidUrlInput(true);
-  }
+  };
 
   const hashUrl = `${href}${href.endsWith("/") ? "" : "/"}${hash}`;
   return (
@@ -119,10 +130,8 @@ export default function Home() {
                   onChange={onDesiredShortLinkChange}
                   hasError={!isValidUrlInput}
                 />
-                <Button
-                  disabled={!isValidUrlInput}
-                  onClick={onCreateShortLink}>
-                    Create Shortlink
+                <Button disabled={!isValidUrlInput} onClick={onCreateShortLink}>
+                  Create Shortlink
                 </Button>
               </>
             )}
