@@ -16,8 +16,15 @@ export async function GET(
   const links = await client.models.Link.listByHash({ hash });
   if (links.errors || links.data.length === 0) {
     console.error({ errors: links.errors });
-    return NextResponse.redirect(`${req.url}/notfound`, {
-      url: `${req.url}/notfound`,
+    // Build the redirect from the forwarded host — req.url is the internal
+    // origin (localhost) when running behind the Amplify Hosting proxy.
+    const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
+    const proto = req.headers.get("x-forwarded-proto") ?? "https";
+    const notFoundUrl = host
+      ? `${proto}://${host}/${hash}/notfound`
+      : `${req.url}/notfound`;
+    return NextResponse.redirect(notFoundUrl, {
+      url: notFoundUrl,
     });
   }
   const link = links.data[0];
